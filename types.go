@@ -1,6 +1,9 @@
 package gopherjson
 
-import "time"
+import (
+	"regexp"
+	"time"
+)
 
 type SerializableValue interface {
 	Serialize() interface{}
@@ -8,4 +11,8 @@ type SerializableValue interface {
 
 type CustomDate struct {
 	time.Time
+}
+
+type CustomRegex struct {
+	*regexp.Regexp
 }
