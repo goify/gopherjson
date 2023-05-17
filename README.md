@@ -10,6 +10,14 @@
 - Support for `CustomRegex`: Serialize and deserialize regular expressions.
 - Support for `CustomFunction`: Serialize and deserialize functions.
 
+## Installation
+
+To use `gopherjson` in your Go project, you need to install it using the `go get` command:
+
+```bash
+go get github.com/iamando/gopherjson
+```
+
 ## Support
 
 GopherJSON is an MIT-licensed open source project. It can grow thanks to the sponsors and support.
