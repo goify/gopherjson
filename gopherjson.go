@@ -2,6 +2,7 @@ package gopherjson
 
 type SerializableValue interface {
 	Serialize() interface{}
+	Deserialize(interface{}) error
 }
 
 // Serialize converts a value into its serializable form.
