@@ -27,7 +27,7 @@ package main
 
 import (
  "fmt"
- "github.com/your-username/gopherjson"
+ "github.com/iamando/gopherjson"
  "time"
 )
 
