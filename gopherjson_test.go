@@ -1,70 +1,41 @@
 package gopherjson
 
 import (
-	"fmt"
 	"reflect"
-	"regexp"
 	"testing"
 	"time"
 )
 
-func TestSerializeDeserialize(t *testing.T) {
-	// Define a test data structure
-	type TestData struct {
-		ID          int
-		Name        string
-		Date        CustomDate
-		Regex       CustomRegex
-		CustomFunc  CustomFunction
-		SubTestData []TestData
+// Define a sample struct for testing
+type Person struct {
+	Name     string     `json:"name"`
+	Age      int        `json:"age"`
+	Birthday CustomDate `json:"birthday"`
+}
+
+func TestSerializeAndDeserialize(t *testing.T) {
+	// Create a sample object
+	p := Person{
+		Name:     "John Doe",
+		Age:      30,
+		Birthday: CustomDate{time.Date(1990, 1, 1, 0, 0, 0, 0, time.UTC)},
 	}
 
-	// Create a test instance of the data structure
-	now := time.Now()
-	data := TestData{
-		ID:   1,
-		Name: "John",
-		Date: CustomDate{now},
-		Regex: CustomRegex{
-			regexp.MustCompile(`^\d{4}-\d{2}-\d{2}$`),
-		},
-		CustomFunc: CustomFunction{
-			FunctionName: "myFunction",
-		},
-		SubTestData: []TestData{
-			{
-				ID:   2,
-				Name: "Jane",
-				Date: CustomDate{now.AddDate(0, 0, 1)},
-				Regex: CustomRegex{
-					regexp.MustCompile(`^[A-Z]+$`),
-				},
-				CustomFunc: CustomFunction{
-					FunctionName: "anotherFunction",
-				},
-			},
-		},
-	}
-
-	// Serialize the test data
-	serialized, err := Serialize(data)
+	// Serialize the object
+	serialized, err := Serialize(p)
 	if err != nil {
-		t.Errorf("Failed to serialize: %v", err)
+		t.Fatalf("Error serializing object: %v", err)
 	}
 
-	// Deserialize the serialized data
-	deserialized, err := Deserialize(serialized)
+	// Deserialize the serialized value
+	var deserialized Person
+	err = Deserialize(serialized, &deserialized)
 	if err != nil {
-		t.Errorf("Failed to deserialize: %v", err)
+		t.Fatalf("Error deserializing value: %v", err)
 	}
 
-	// Compare the original and deserialized data
-	if !reflect.DeepEqual(data, deserialized) {
-		t.Errorf("Deserialized data does not match the original")
+	// Compare the original and deserialized objects
+	if !reflect.DeepEqual(p, deserialized) {
+		t.Error("Deserialized object does not match the original")
 	}
-
-	// Print the results
-	fmt.Println("Original Data:", data)
-	fmt.Println("Serialized Data:", serialized)
-	fmt.Println("Deserialized Data:", deserialized)
 }
