@@ -27,8 +27,9 @@ package main
 
 import (
  "fmt"
- "github.com/iamando/gopherjson"
  "time"
+
+ "github.com/iamando/gopherjson"
 )
 
 type Person struct {
@@ -51,7 +52,8 @@ func main() {
  }
 
  // Deserialize the serialized data
- deserialized, err := gopherjson.Deserialize(serialized)
+ var deserialized Person
+ err := gopherjson.Deserialize(serialized, &deserialized)
  if err != nil {
   fmt.Println("Deserialization error:", err)
   return
