@@ -20,7 +20,7 @@ func Serialize(value interface{}) (interface{}, error) {
 		for key, val := range v {
 			serializedVal, err := Serialize(val)
 			if err != nil {
-				return nil, err
+				return nil, fmt.Errorf("error serializing map value: %w", err)
 			}
 			result[key] = serializedVal
 		}
@@ -30,7 +30,7 @@ func Serialize(value interface{}) (interface{}, error) {
 		for i, val := range v {
 			serializedVal, err := Serialize(val)
 			if err != nil {
-				return nil, err
+				return nil, fmt.Errorf("error serializing slice element: %w", err)
 			}
 			result[i] = serializedVal
 		}
