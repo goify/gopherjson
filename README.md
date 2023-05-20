@@ -12,6 +12,11 @@
 
 ## Installation
 
+![build](https://github.com/iamando/gopherjson/workflows/build/badge.svg)
+![license](https://img.shields.io/github/license/iamando/gopherjson?color=success)
+![Go version](https://img.shields.io/github/go-mod/go-version/iamando/gopherjson)
+[![GoDoc](https://godoc.org/github.com/iamando/gopherjson?status.svg)](https://godoc.org/github.com/iamando/gopherjson)
+
 To use `gopherjson` in your Go project, you need to install it using the `go get` command:
 
 ```bash
