@@ -12,12 +12,20 @@ type SerializableValue interface {
 
 // Serialize converts a value into its serializable form.
 func Serialize(value interface{}) (interface{}, error) {
-	switch v := value.(type) {
-	case SerializableValue:
-		return v.Serialize(), nil
-	case map[string]interface{}:
+	if sv, ok := value.(SerializableValue); ok {
+		return sv.Serialize(), nil
+	}
+
+	rv := reflect.ValueOf(value)
+
+	switch rv.Kind() {
+	case reflect.Map:
 		result := make(map[string]interface{})
-		for key, val := range v {
+		iter := rv.MapRange()
+		for iter.Next() {
+			key := iter.Key().Interface().(string)
+			val := iter.Value().Interface()
+
 			serializedVal, err := Serialize(val)
 			if err != nil {
 				return nil, fmt.Errorf("error serializing map value: %w", err)
@@ -25,9 +33,12 @@ func Serialize(value interface{}) (interface{}, error) {
 			result[key] = serializedVal
 		}
 		return result, nil
-	case []interface{}:
-		result := make([]interface{}, len(v))
-		for i, val := range v {
+
+	case reflect.Slice:
+		result := make([]interface{}, rv.Len())
+		for i := 0; i < rv.Len(); i++ {
+			val := rv.Index(i).Interface()
+
 			serializedVal, err := Serialize(val)
 			if err != nil {
 				return nil, fmt.Errorf("error serializing slice element: %w", err)
@@ -35,6 +46,7 @@ func Serialize(value interface{}) (interface{}, error) {
 			result[i] = serializedVal
 		}
 		return result, nil
+
 	default:
 		return value, nil
 	}
