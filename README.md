@@ -1,9 +1,9 @@
 # GopherJSON
 
-![build](https://github.com/iamando/gopherjson/workflows/build/badge.svg)
-![license](https://img.shields.io/github/license/iamando/gopherjson?color=success)
-![Go version](https://img.shields.io/github/go-mod/go-version/iamando/gopherjson)
-[![GoDoc](https://godoc.org/github.com/iamando/gopherjson?status.svg)](https://godoc.org/github.com/iamando/gopherjson)
+![build](https://github.com/goify/gopherjson/workflows/build/badge.svg)
+![license](https://img.shields.io/github/license/goify/gopherjson?color=success)
+![Go version](https://img.shields.io/github/go-mod/go-version/goify/gopherjson)
+[![GoDoc](https://godoc.org/github.com/goify/gopherjson?status.svg)](https://godoc.org/github.com/goify/gopherjson)
 
 `gopherjson` is a powerful and flexible Go package that provides advanced serialization and deserialization capabilities for working with JSON data.
 
@@ -20,7 +20,7 @@
 To use `gopherjson` in your Go project, you need to install it using the `go get` command:
 
 ```bash
-go get github.com/iamando/gopherjson
+go get github.com/goify/gopherjson
 ```
 
 ## Usage
@@ -34,7 +34,7 @@ import (
  "fmt"
  "time"
 
- "github.com/iamando/gopherjson"
+ "github.com/goify/gopherjson"
 )
 
 type Person struct {
